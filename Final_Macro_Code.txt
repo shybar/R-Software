@@ -1,0 +1,448 @@
+
+Sub open_workbook()
+'Open existing workbook from path'
+Dim ws As Worksheet, twb As Worksheet, LASTROW&
+
+'UnHide All worksheet
+For Each ws In ActiveWorkbook.Worksheets
+ws.Visible = xlSheetVisible
+Next ws
+
+'Delete worksheet "Combined" if exists
+For Each s In ActiveWorkbook.Sheets
+    'without confirmation prompts using
+    Application.DisplayAlerts = False
+    If Left(s.Name, 16) = "Combined" Then
+        s.Delete
+    End If
+Next s
+
+'Clear all worksheets'
+For Each Sheet In ActiveWorkbook.Sheets
+Sheet.Select
+With Cells
+.ClearContents
+.ClearComments
+.ClearFormats
+End With
+Next Sheet
+
+
+'Open existing workbook from path'
+Workbooks.Open ("D:\SHYAMA_WORKING\DPR\DPR_MACRO\Kolkata Sitewise DPR.xlsx")
+
+'Remove all filters from all worksheets'
+For Each twb In Workbooks("Kolkata Sitewise DPR.xlsx").Worksheets   '====amend the name to suit
+  twb.AutoFilterMode = False
+Next twb
+
+'Active worksheet'
+
+Set swb1 = Workbooks("Kolkata Sitewise DPR.xlsx").Worksheets("Growth V4 Tracker")
+Set swb2 = Workbooks("Kolkata Sitewise DPR.xlsx").Worksheets("Infill-Capacity-Growth Tracker")
+Set swb3 = Workbooks("Kolkata Sitewise DPR.xlsx").Worksheets("Own Built Tracker P3-P4")
+Set swb4 = Workbooks("Kolkata Sitewise DPR.xlsx").Worksheets("Own Built Tracker P1")
+Set swb5 = Workbooks("Kolkata Sitewise DPR.xlsx").Worksheets("Additional RFC against RFE1Hold")
+Set swb6 = Workbooks("Kolkata Sitewise DPR.xlsx").Worksheets("Growth V5 Tracker")
+
+
+'Delete row if cell in "M" column is any blank
+On Error Resume Next
+swb1.Columns("M").SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+swb2.Columns("M").SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+swb3.Columns("M").SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+swb4.Columns("M").SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+swb5.Columns("M").SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+swb6.Columns("M").SpecialCells(xlCellTypeBlanks).EntireRow.Delete
+
+
+             
+'Copy mentioned columns and past to Growth-V4 worksheets'
+'Column Name: CPC Project  Scope 5th Oct17
+swb1.Columns("B").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "A").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Own Build / IP Mapable as per Circle RF
+swb1.Columns("C").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "B").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Site ID
+swb1.Columns("L").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "C").End(xlUp).Offset(0, 0)
+
+'Column Name: SAP ID
+swb1.Columns("M").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "D").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Name
+swb1.Columns("N").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "E").End(xlUp).Offset(0, 0)
+
+'Column Name: Jio Centre Name
+swb1.Columns("EJ").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "F").End(xlUp).Offset(0, 0)
+
+'Column Name: Site RFC (date)
+swb1.Columns("BO").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "G").End(xlUp).Offset(0, 0)
+
+'Column Name: RFE1 Accepted by CMM in SF
+swb1.Columns("DQ").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "H").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Availability date
+swb1.Columns("DF").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "I").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Board (Jurisdiction)
+swb1.Columns("DB").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "J").End(xlUp).Offset(0, 0)
+
+'Column Name: Mast Type (GBM/RTP/RTD)
+swb1.Columns("X").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "K").End(xlUp).Offset(0, 0)
+
+'Column Name: Civil Foundation (Type of foundation)
+swb1.Columns("CA").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "L").End(xlUp).Offset(0, 0)
+
+'Column Name: DG Installation & Commissioning (End Date)
+swb1.Columns("CW").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "M").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Configuration CSS/AG1
+swb1.Columns("E").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "N").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Address
+swb1.Columns("P").Copy ThisWorkbook.Worksheets("Growth-V4").Cells(Rows.Count, "O").End(xlUp).Offset(0, 0)
+
+'Delete the Forst row
+ThisWorkbook.Sheets("Growth-V4").Range("1:1").Delete
+
+
+'Copy mentioned columns and past to Infill-Capacity-Growth worksheets'
+'Column Name: CPC Project  Scope 5th Oct17
+swb2.Columns("B").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "A").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Own Build / IP Mapable as per Circle RF
+swb2.Columns("C").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "B").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Site ID
+swb2.Columns("L").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "C").End(xlUp).Offset(0, 0)
+
+'Column Name: SAP ID
+swb2.Columns("M").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "D").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Name
+swb2.Columns("N").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "E").End(xlUp).Offset(0, 0)
+
+'Column Name: Jio Centre Name
+swb2.Columns("EJ").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "F").End(xlUp).Offset(0, 0)
+
+'Column Name: Site RFC (date)
+swb2.Columns("BO").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "G").End(xlUp).Offset(0, 0)
+
+'Column Name: RFE1 Accepted by CMM in SF
+swb2.Columns("DQ").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "H").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Availability date
+swb2.Columns("DE").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "I").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Board (Jurisdiction)
+swb2.Columns("DB").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "J").End(xlUp).Offset(0, 0)
+
+'Column Name: Mast Type (GBM/RTP/RTD)
+swb2.Columns("X").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "K").End(xlUp).Offset(0, 0)
+
+'Column Name: Civil Foundation (Type of foundation)
+swb2.Columns("CA").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "L").End(xlUp).Offset(0, 0)
+
+'Column Name: DG Installation & Commissioning (End Date)
+swb2.Columns("CW").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "M").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Configuration CSS/AG1
+swb2.Columns("E").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "N").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Address
+swb2.Columns("P").Copy ThisWorkbook.Worksheets("Infill-Capacity-Growth").Cells(Rows.Count, "O").End(xlUp).Offset(0, 0)
+
+'Delete the Forst row
+ThisWorkbook.Sheets("Infill-Capacity-Growth").Range("1:1").Delete
+
+
+'Copy mentioned columns and past to Own-Built-P3-P4 worksheets'
+'Column Name: CPC Project  Scope 5th Oct17
+swb3.Columns("B").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "A").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Own Build / IP Mapable as per Circle RF
+swb3.Columns("C").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "B").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Site ID
+swb3.Columns("L").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "C").End(xlUp).Offset(0, 0)
+
+'Column Name: SAP ID
+swb3.Columns("M").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "D").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Name
+swb3.Columns("N").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "E").End(xlUp).Offset(0, 0)
+
+'Column Name: Jio Centre Name
+swb3.Columns("EJ").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "F").End(xlUp).Offset(0, 0)
+
+'Column Name: Site RFC (date)
+swb3.Columns("BO").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "G").End(xlUp).Offset(0, 0)
+
+'Column Name: RFE1 Accepted by CMM in SF
+swb3.Columns("DQ").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "H").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Availability date
+swb3.Columns("DE").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "I").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Board (Jurisdiction)
+swb3.Columns("DB").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "J").End(xlUp).Offset(0, 0)
+
+'Column Name: Mast Type (GBM/RTP/RTD)
+swb3.Columns("X").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "K").End(xlUp).Offset(0, 0)
+
+'Column Name: Civil Foundation (Type of foundation)
+swb3.Columns("CA").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "L").End(xlUp).Offset(0, 0)
+
+'Column Name: DG Installation & Commissioning (End Date)
+swb3.Columns("CW").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "M").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Configuration CSS/AG1
+swb3.Columns("E").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "N").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Address
+swb3.Columns("P").Copy ThisWorkbook.Worksheets("Own-Built-P3-P4").Cells(Rows.Count, "O").End(xlUp).Offset(0, 0)
+
+'Delete the Forst row
+ThisWorkbook.Sheets("Own-Built-P3-P4").Range("1:1").Delete
+
+
+'Copy mentioned columns and past to Own-Built-P1 worksheets'
+'Column Name: CPC Project  Scope 5th Oct17
+swb4.Columns("B").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "A").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Own Build / IP Mapable as per Circle RF
+swb4.Columns("C").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "B").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Site ID
+swb4.Columns("L").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "C").End(xlUp).Offset(0, 0)
+
+'Column Name: SAP ID
+swb4.Columns("M").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "D").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Name
+swb4.Columns("N").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "E").End(xlUp).Offset(0, 0)
+
+'Column Name: Jio Centre Name
+swb4.Columns("EJ").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "F").End(xlUp).Offset(0, 0)
+
+'Column Name: Site RFC (date)
+swb4.Columns("BO").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "G").End(xlUp).Offset(0, 0)
+
+'Column Name: RFE1 Accepted by CMM in SF
+swb4.Columns("DQ").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "H").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Availability date
+swb4.Columns("DF").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "I").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Board (Jurisdiction)
+swb4.Columns("DB").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "J").End(xlUp).Offset(0, 0)
+
+'Column Name: Mast Type (GBM/RTP/RTD)
+swb4.Columns("X").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "K").End(xlUp).Offset(0, 0)
+
+'Column Name: Civil Foundation (Type of foundation)
+swb4.Columns("CA").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "L").End(xlUp).Offset(0, 0)
+
+'Column Name: DG Installation & Commissioning (End Date)
+swb4.Columns("CW").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "M").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Configuration CSS/AG1
+swb4.Columns("E").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "N").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Address
+swb4.Columns("P").Copy ThisWorkbook.Worksheets("Own-Built-P1").Cells(Rows.Count, "O").End(xlUp).Offset(0, 0)
+
+'Delete the Forst row
+ThisWorkbook.Sheets("Own-Built-P1").Range("1:1").Delete
+
+
+'Copy mentioned columns and past to Additional-RFC worksheets'
+'Column Name: CPC Project  Scope 5th Oct17
+swb5.Columns("B").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "A").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Own Build / IP Mapable as per Circle RF
+swb5.Columns("C").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "B").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Site ID
+swb5.Columns("L").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "C").End(xlUp).Offset(0, 0)
+
+'Column Name: SAP ID
+swb5.Columns("M").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "D").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Name
+swb5.Columns("N").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "E").End(xlUp).Offset(0, 0)
+
+'Column Name: Jio Centre Name
+swb5.Columns("EJ").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "F").End(xlUp).Offset(0, 0)
+
+'Column Name: Site RFC (date)
+swb5.Columns("BO").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "G").End(xlUp).Offset(0, 0)
+
+'Column Name: RFE1 Accepted by CMM in SF
+swb5.Columns("DQ").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "H").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Availability Date
+swb5.Columns("DF").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "I").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Board (Jurisdiction)
+swb5.Columns("DB").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "J").End(xlUp).Offset(0, 0)
+
+'Column Name: Mast Type (GBM/RTP/RTD)
+swb5.Columns("X").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "K").End(xlUp).Offset(0, 0)
+
+'Column Name: Civil Foundation (Type of foundation)
+swb5.Columns("CA").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "L").End(xlUp).Offset(0, 0)
+
+'Column Name: DG Installation & Commissioning (End Date)
+swb5.Columns("CW").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "M").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Configuration CSS/AG1
+swb5.Columns("E").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "N").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Address
+swb5.Columns("P").Copy ThisWorkbook.Worksheets("Additional-RFC").Cells(Rows.Count, "O").End(xlUp).Offset(0, 0)
+
+'Copy mentioned columns and past to Growth V5 Tracker worksheets'
+'Column Name: CPC Project  Scope 5th Oct17
+swb6.Columns("B").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "A").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Own Build / IP Mapable as per Circle RF
+swb6.Columns("C").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "B").End(xlUp).Offset(0, 0)
+
+'Column Name: Revised Scope >> Site ID
+swb6.Columns("L").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "C").End(xlUp).Offset(0, 0)
+
+'Column Name: SAP ID
+swb6.Columns("M").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "D").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Name
+swb6.Columns("N").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "E").End(xlUp).Offset(0, 0)
+
+'Column Name: Jio Centre Name
+swb6.Columns("EJ").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "F").End(xlUp).Offset(0, 0)
+
+'Column Name: Site RFC (date)
+swb6.Columns("BO").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "G").End(xlUp).Offset(0, 0)
+
+'Column Name: RFE1 Accepted by CMM in SF
+swb6.Columns("DQ").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "H").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Availability date
+swb6.Columns("DF").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "I").End(xlUp).Offset(0, 0)
+
+'Column Name: EB Board (Jurisdiction)
+swb6.Columns("DB").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "J").End(xlUp).Offset(0, 0)
+
+'Column Name: Mast Type (GBM/RTP/RTD)
+swb6.Columns("X").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "K").End(xlUp).Offset(0, 0)
+
+'Column Name: Civil Foundation (Type of foundation)
+swb6.Columns("CA").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "L").End(xlUp).Offset(0, 0)
+
+'Column Name: DG Installation & Commissioning (End Date)
+swb6.Columns("CW").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "M").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Configuration CSS/AG1
+swb6.Columns("E").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "N").End(xlUp).Offset(0, 0)
+
+'Column Name: Site Address
+swb6.Columns("P").Copy ThisWorkbook.Worksheets("Growth-V5").Cells(Rows.Count, "O").End(xlUp).Offset(0, 0)
+
+'Delete the Forst row
+ThisWorkbook.Sheets("Growth-V5").Range("1:1").Delete
+
+
+'-------
+
+'Close existing workbook without save'
+Workbooks("Kolkata Sitewise DPR.xlsx").Close savechanges:=False
+
+'Condensing Multiple Worksheets Into One
+Dim J As Integer
+
+    On Error Resume Next
+    Sheets(1).Select
+    Worksheets.Add ' add a sheet in first place
+    Sheets(1).Name = "Combined"
+
+    ' copy headings
+    Sheets(2).Activate
+    Range("A1").EntireRow.Select
+    Selection.Copy Destination:=Sheets(1).Range("A1")
+
+    ' work through sheets
+    For J = 2 To Sheets.Count ' from sheet 2 to last sheet
+        Sheets(J).Activate ' make the sheet active
+        Range("A1").Select
+        Selection.CurrentRegion.Select ' select all cells in this sheets
+
+        ' select all lines except title
+        Selection.Offset(0, 0).Resize(Selection.Rows.Count - 0).Select
+
+        ' copy cells selected in the new sheet on last line
+        Selection.Copy Destination:=Sheets(1).Range("A65536").End(xlUp)(2)
+        'Selection.Copy
+        'Sheets(1).Range("A4750").End(xlUp)(2).PasteSpecial xlPasteValues
+    Next
+
+
+Application.ScreenUpdating = True
+
+'To select entire data
+Worksheets("Combined").Cells.Select
+
+'For sorting
+ActiveWorkbook.Worksheets("Combined").Range("A3:O7000").Sort _
+Key1:=Range("C3"), Order1:=xlAscending
+
+'Delete duplicate rows based on 3 column
+ActiveWorkbook.Worksheets("Combined").Range("A:O").RemoveDuplicates Columns:=3, Header:=xlNo
+
+'Convert Date Format column "EB Availability in ODC"
+ActiveWorkbook.Worksheets("Combined").Range("H3", "H50000").NumberFormat = "[$-409]dd-mmm-yy;@"
+ActiveWorkbook.Worksheets("Combined").Range("I3", "I50000").NumberFormat = "[$-409]dd-mmm-yy;@"
+
+'WrapText = False and Autofilt
+ActiveWorkbook.Worksheets("Combined").Range("A:O").Cells.WrapText = False
+ActiveWorkbook.Worksheets("Combined").Range("A:O").Cells.AutoFit
+
+'Convert rows no 2
+ActiveWorkbook.Worksheets("Combined").Rows(2).WrapText = True
+
+'Hide multiple sheets at one time
+ActiveWorkbook.Worksheets(Array("Growth-V4", "Infill-Capacity-Growth", "Own-Built-P3-P4", "Own-Built-P1", "Additional-RFC", "Growth-V5")).Visible = xlSheetHidden
+
+Worksheets("Combined").Select 'Select Excel named Worksheet in ActiveWorkbook
+
+ThisWorkbook.Save
+
+'Copy worksheet to new workbook and save with current system date
+
+Dim FName           As String
+    Dim FPath           As String
+    Dim NewBook         As Workbook
+ 
+    FPath = "D:\SHYAMA_WORKING\DPR\DPR_MACRO"
+    FName = "DPR_Compile_Shyama_" & Format(Date, "ddmmyyyy") & ".xlsx"
+    
+    Set NewBook = Workbooks.Add
+ 
+    ThisWorkbook.Sheets("Combined").Copy Before:=NewBook.Sheets(1)
+ 
+    If Dir(FPath & "\" & FName) <> "" Then
+        MsgBox "File " & FPath & "\" & FName & " already exists"
+    Else
+        NewBook.SaveAs Filename:=FPath & "\" & FName
+    End If
+
+'Close existing workbook without save'
+ Workbooks(FName).Close savechanges:=False
+
+ 
+End Sub
+
+
+    
+
+
