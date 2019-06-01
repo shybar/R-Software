@@ -9,7 +9,7 @@ os.chdir(path)  # Set Current working path
 os.getcwd()       # Prints the current working directory
 
 # Read zip file
-zip= zipfile.ZipFile('Access availability Report_29052019.zip')
+zip= zipfile.ZipFile('Access availability Report_30052019.zip')
 
 # Read file from zip
 fname=zip.namelist()
@@ -34,7 +34,7 @@ isc=isc.loc[isc['R4G'] == 'Kolkata']
 osc=osc.loc[osc['R4G'] == 'Kolkata']
 
 # drop a column based on column name
-enb.drop(["Sr NO"], axis = 1, inplace = True)
+enb=enb.drop(["Sr NO"], axis = 1)
 
 # ExportFileName
 ExportFileName='NOC_Report_'+fname[27:-5]+'.xlsx'
