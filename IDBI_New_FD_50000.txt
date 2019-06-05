@@ -1,0 +1,66 @@
+
+
+
+
+
+
+
+
+			Cyber Receipt of Opening of New Deposit Account
+___________________________________________________________________________
+
+
+Reference id                           :	FDA3018463
+TimeStamp                              :	2019-06-04 15:41:23.922
+
+
+Opening a Fixed Deposit :-
+
+Date					: 04/06/19
+
+A/c Holder's Customer ID		: 82599902
+
+Account Holder Name			: APRAJITA BARUA 
+
+Debit Account Number			: 0702104000081573-RSNEW
+
+Branch in which FD is to be Opened	: 00184
+
+Type of Deposit				: Regular Deposit  
+
+Interest Payout				: Annual Interest Payout
+
+Period					: 12 Months   0 Days 
+
+Amount					: 50000 INR
+
+Interest Frequency			: Annual
+
+Maturity Instruction			: Transfer Maturity Proceeds to A/c
+
+Credit Account Number			: 0702104000081573-RSNEW
+
+Sweep Facility Availed			: No 
+
+Nominee Name		:  
+
+Nominee Relation			:  
+
+Nominee DOB				:  
+
+Nominee Age				:  
+
+Nominee Add1				:  
+
+Nominee Add2				:  
+
+Nominee City Code				:  
+
+Nominee State Code				:  
+
+Nominee Country Code				:  
+
+Nominee Pin Code				:  
+
+Guardian (If Nominee is minor)		: 
+ __________________________________________________________________________
