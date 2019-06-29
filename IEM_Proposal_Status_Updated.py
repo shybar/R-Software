@@ -36,6 +36,12 @@ m3= pd.merge(left=m2,right=jc, how='left', on=['JC SAP ID']). drop(columns=['Pro
 # Arranging columns
 P92_Final = m3[['Consumer number','Meter Number','Vendor Code','Vendor Name','Vendor Invoice No.','Amount','Site ID','JC SAP ID','JIO CENTRE NAME','Proposal Date','Proposal Number','Proposal Status','Scroll No.','Process Id','Tax Code','Short Text']]
 
+# Insert a column at a specific column index
+idx = 0   #  Index value 0 meance 1st column
+
+# Inser new column SAP with value='P92-6003'
+P92_Final.insert(loc=idx, column='SAP', value='P92-6003')
+
 # Convert the dictionary into DataFrame
 df=pd.DataFrame(P92_Final)
 
@@ -79,6 +85,12 @@ m6= pd.merge(left=m5,right=jc, how='left', on=['JC SAP ID']). drop(columns=['Pro
 # Arranging columns
 P91_Final = m6[['Consumer number','Meter Number','Vendor Code','Vendor Name','Vendor Invoice No.','Amount','Site ID','JC SAP ID','JIO CENTRE NAME','Proposal Date','Proposal Number','Proposal Status','Scroll No.','Process Id','Tax Code','Short Text']]
 
+# Insert a column at a specific column index
+idx = 0   #  Index value 0 meance 1st column
+
+# Inser new column SAP with value='P92-6003'
+P91_Final.insert(loc=idx, column='SAP', value='P91-6000')
+
 # Convert the dictionary into DataFrame
 df=pd.DataFrame(P91_Final)
 
@@ -89,6 +101,31 @@ writer = pd.ExcelWriter(FileName, engine='xlsxwriter')
 
 # Convert the dataframe to an XlsxWriter Excel object.
 df.to_excel(writer, sheet_name='Sheet1',index=False)
+
+# Close the Pandas Excel writer and output the Excel file.
+writer.save()
+
+P=pd.concat([P92_Final.loc[P92_Final['Proposal Status'] == 'Proposed'],P91_Final.loc[P91_Final['Proposal Status'] == 'Proposed']])
+PV=pd.concat([P92_Final.loc[P92_Final['Proposal Status'] == 'PV Approved'],P91_Final.loc[P91_Final['Proposal Status'] == 'PV Approved']])
+A=pd.concat([P92_Final.loc[P92_Final['Proposal Status'] == 'Approved'],P91_Final.loc[P91_Final['Proposal Status'] == 'Approved']])
+C=pd.concat([P92_Final.loc[P92_Final['Proposal Status'] == 'confirmed'],P91_Final.loc[P91_Final['Proposal Status'] == 'confirmed']])
+R=pd.concat([P92_Final.loc[P92_Final['Proposal Status'] == 'IV Rejected'],P91_Final.loc[P91_Final['Proposal Status'] == 'IV Rejected']])
+
+# Add an empty column to a dataframe
+P=P.assign(Tax_Deducted_Status="",TDS_Code_Mapping_Status="",Six_Digits_SAC_Code="")
+
+# ExportFileName
+ExportFileName='IEM_Proposal_Status_'+ datetime +'.xlsx'
+
+# Create a Pandas Excel writer using XlsxWriter as the engine.
+writer = pd.ExcelWriter(ExportFileName, engine='xlsxwriter')
+
+# Write each dataframe to a different worksheet.
+P.to_excel(writer, sheet_name='Proposed',index=False)
+PV.to_excel(writer, sheet_name='PV Approved',index=False)
+A.to_excel(writer, sheet_name='Approved',index=False)
+C.to_excel(writer, sheet_name='Confirmed',index=False)
+R.to_excel(writer, sheet_name='IV Rejected',index=False)
 
 # Close the Pandas Excel writer and output the Excel file.
 writer.save()

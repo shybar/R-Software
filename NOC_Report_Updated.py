@@ -9,7 +9,7 @@ os.chdir(path)  # Set Current working path
 os.getcwd()       # Prints the current working directory
 
 # Read zip file
-zip= zipfile.ZipFile('Access availability Report_19062019.zip')
+zip= zipfile.ZipFile('Access availability Report_27062019.zip')
 
 # Read file from zip
 fname=zip.namelist()
@@ -36,19 +36,30 @@ osc=osc.loc[osc['R4G'] == 'Kolkata']
 # drop a column based on column name
 enb=enb.drop(["Sr NO"], axis = 1)
 
+# Insert a column at a specific column index
+idx = 0   #  Index value 0 meance 1st column
+
+# Inser new column 'Date' in 1st column with value= ZIP file date
+enb.insert(loc=idx, column='Date', value=fname[27:-5])  ## substrick from fname
+isc.insert(loc=idx, column='Date', value=fname[27:-5])  ## substrick from fname
+osc.insert(loc=idx, column='Date', value=fname[27:-5])  ## substrick from fname
+
+
 # ExportFileName
-ExportFileName='NOC_Report_'+fname[27:-5]+'.xlsx'
+Export_EnB='NOC_Report_EnB_'+fname[27:-5]+'.csv'
+Export_ISC='NOC_Report_ISC_'+fname[27:-5]+'.csv'
+Export_OSC='NOC_Report_OSC_'+fname[27:-5]+'.csv'
 
 # Create a Pandas Excel writer using XlsxWriter as the engine.
-writer = pd.ExcelWriter(ExportFileName, engine='xlsxwriter')
+#writer = pd.ExcelWriter(ExportFileName, engine='xlsxwriter')
 
-# Write each dataframe to a different worksheet.
-enb.to_excel(writer, sheet_name='EnB',index=False)
-isc.to_excel(writer, sheet_name='ISC',index=False)
-osc.to_excel(writer, sheet_name='OSC',index=False)
+# Write each dataframe to a different CSV file.
+enb.to_csv(Export_EnB,index=False)
+isc.to_csv(Export_ISC,index=False)
+osc.to_csv(Export_OSC,index=False)
 
 # Close the Pandas Excel writer and output the Excel file.
-writer.save()
+#writer.save()
 
 # Close zip file
 zip.close()
